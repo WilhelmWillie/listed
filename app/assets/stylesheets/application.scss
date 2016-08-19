@@ -1,0 +1,177 @@
+// Variables
+$body-bg: #ececec;
+
+$font-family-sans-serif: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+$navbar-inverse-bg: #e36464;
+$navbar-inverse-border: darken($navbar-inverse-bg, 4%);
+$navbar-inverse-link-color: #ffffff;
+$navbar-inverse-link-hover-bg: darken($navbar-inverse-bg, 4%);
+
+$grid-gutter-width: 15px;
+
+$navbar-height: 60px;
+
+$list-group-border-radius: 0px;
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+body {
+  padding-top: $navbar-height + 10px;
+}
+
+.jumbotron {
+  margin-top: -10px;
+  padding-top: 150px;
+  padding-bottom: 150px;
+  background: url('/assets/jumbotron-splash.jpg') center center fixed;
+  background-size: cover;
+  color: #ffffff;
+
+  h1 {
+    font-family: 'Damion', cursive;
+    font-size: 125px;
+    margin: 0;
+
+    @media (max-width: $screen-sm-max) {
+      font-size: 80px;
+    }
+  }
+
+  .btn-primary {
+    border: 2px solid #ffffff;
+    background: transparent;
+    font-weight: 300;
+  }
+
+  @media (min-width: $screen-sm-max) and (max-width: $screen-md-max) {
+    padding-top: 125px;
+    padding-bottom: 125px;
+  }
+
+  @media (max-width: $screen-sm-max) {
+    padding-top: 75px;
+    padding-bottom: 75px;
+  }
+}
+
+h1.list-title {
+  margin-bottom: 25px;
+}
+
+.like-btn {
+  @extend .btn-sm;
+  @extend .btn-default;
+
+  &.user-likes-list {
+    @extend .btn-danger;
+  }
+}
+
+.navbar-brand {
+  font-family: 'Damion', cursive;
+  font-size: 24px;
+  padding-right: 20px;
+}
+
+.block {
+  background: #ffffff;
+  margin-bottom: 15px;
+  padding: 25px 20px 15px;
+
+  h2.block-title {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 300;
+
+    @media (max-width: $screen-sm-max) {
+      font-size: 16px;
+    }
+  }
+
+  .edit-bar {
+    padding: 15px 0;
+    border-top: 1px solid #eeeeee;
+  }
+
+  .block-footer {
+    padding-top: 15px;
+    border-top: 1px solid #eeeeee;
+  }
+}
+
+.list-item {
+  position: relative;
+}
+
+.comments {
+  margin-top: 1em;
+
+  .comment {
+    padding: 15px 0;
+    border-top: 1px solid #eeeeee;
+
+    .comment-author {
+      font-size: 24px;
+      margin: 0 0 0.5em;
+    }
+
+    .comment-footer {
+      color: #969696;
+      font-weight: 600;
+    }
+  }
+
+  .no-comments {
+    color: #969696;
+    font-size: 20px;
+    font-weight: 300;
+  }
+}
+
+.pages-list {
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+.glyphicon-pad-right {
+  padding-right: 5px;
+}
+
+// For lists of lists (wait what?)
+.list-preview-heading {
+  .list-title {
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .list-author {
+    font-weight: 600;
+    font-size: 16px;
+    color: #858585;
+  }
+}
+
+.list-preview-description {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.list-preview-footer {
+  color: #858585;
+  
+  .list-likes {
+    margin-right: 15px;
+  }
+}
+
+h1.user-display-name {
+  margin: 0;
+}

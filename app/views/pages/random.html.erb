@@ -1,0 +1,12 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <h2>Random Lists</h2>
+      <div class='list-group'>
+        <% @lists.each do |l|%>
+          <%= link_to l.title, l, class: 'list-group-item'%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

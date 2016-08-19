@@ -1,0 +1,141 @@
+<div class='container'>
+  <h1 class='list-title'><%= @list.title %></h1>
+
+  <div class='row'>
+    <div class='col-md-5'>
+      <div class='block'>
+        <h2 class='block-title'>By: <%= @list.user.display_name %></h2>
+
+        <p><%= @list.description %></p>
+
+        <% if user_can_edit? %>
+          <div class='edit-bar'>
+            <button type='button' class='btn btn-success btn-sm' data-toggle='modal' data-target='#addItemModal'>
+              <i class='glyphicon glyphicon-plus glyphicon-pad-right'> </i> Add Item
+            </button>
+
+            <button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#editListModal'>
+              <i class='glyphicon glyphicon-pencil glyphicon-pad-right'> </i> Edit List
+            </button>
+
+            <button type='button' class='btn btn-danger btn-sm' data-toggle='modal' data-target='#deleteListModal'>
+              <i class='glyphicon glyphicon-trash glyphicon-pad-right'> </i> Delete List
+            </button>
+          </div>
+        <% end %>
+
+        <div class='block-footer'>
+          <% if current_user %>
+            <% if user_likes_list? %>
+              <button type='button' class='btn like-btn user-likes-list' id='like-list'>
+                <i class='glyphicon glyphicon-heart glyphicon-pad-right'></i> <span class='like-count'><%= @list.likes_count %></span>
+              </button>
+            <% else %>
+              <button type='button' class='btn like-btn' id='like-list'>
+                <i class='glyphicon glyphicon-heart glyphicon-pad-right'></i> <span class='like-count'><%= @list.likes_count %></span>
+              </button>
+            <% end %>
+          <% else %>
+            <i class='glyphicon glyphicon-heart glyphicon-pad-right'></i> <%= @list.likes_count %>
+          <% end %>      
+        </div>
+      </div>
+
+      <div class='block'>
+        <h2 class='block-title'>Comments (<%= @list.comments_count %>)</h2>
+
+        <% if current_user %>
+          <%= form_for [@list, @comment] do |f| %>
+            <div class='form-group'>
+              <%= f.text_area :content, class: 'form-control' %>
+            </div>
+
+            <%= f.submit 'Add Comment', class: 'btn btn-primary' %>
+          <% end %>
+        <% end %>
+
+        <div class='comments'>
+          <% @comments.each do |c| %>
+            <div class='comment'>
+              <h3 class='comment-author'>
+                <%= link_to c.user do %>
+                  <%= c.user.display_name %>
+                <% end %>
+              </h3>
+
+              <p><%= c.content %></p>   
+
+              <span class='comment-footer'>
+                <%= c.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y - %I:%M %p") %>
+
+                <% if current_user == c.user %>
+                | <%= link_to 'Delete', list_comment_path(@list, c), method: :delete %>
+                <% end %>
+              </span>
+            </div>
+          <% end %>
+
+          <% if @comments.empty? %>
+            <span class='no-comments'>No comments :(</span>
+          <% end %>
+        </div>
+      </div> 
+    </div>
+
+    <div class='col-md-7'>
+      <div class='list' data-list-id='<%= @list.id %>'>
+        <% if @items.empty? %>
+          <div class='text-center'>
+            <h2>This list is empty :(</h2>
+            <% if user_can_edit? %>
+              <p class='lead'>Fill this list with content and add some items</p>
+
+              <button type='button' class='btn btn-success btn-lg' data-toggle='modal' data-target='#addItemModal'>
+                <i class='glyphicon glyphicon-plus glyphicon-pad-right'> </i> Add Item
+              </button>
+            <% else %>
+              <p class='lead'>That's awkward, this list has no content.. Come back later perhaps?</p>  
+            <% end %>
+          </div>
+        <% end %>
+
+        <% @items.each do |i| %>
+          <div class='list-item block' data-item-id='<%= i.id %>'>
+            <h2 class='block-title item-title'><%= i.name %></h2>
+
+            <p class='item-description'><%= i.description %></p>
+
+            <% if user_can_edit? %>
+              <div class='block-footer text-right'>
+
+                <button class='btn btn-sm btn-info move-item-up' data-toggle='tooltip' data-placement='bottom' title='Move Up'>
+                  <i class='glyphicon glyphicon-chevron-up'></i>
+                </button>
+
+                <button class='btn btn-sm btn-info move-item-down' data-toggle='tooltip' data-placement='bottom' title='Move Down'>
+                  <i class='glyphicon glyphicon-chevron-down'></i>
+                </button>
+
+                <button class='btn btn-sm btn-primary edit-item' data-toggle='modal' data-target='#editItemModal'>
+                  <i class='glyphicon glyphicon-pencil'></i>
+                </button>
+
+                <%= link_to list_item_path(@list, i), method: :delete, class: 'btn btn-sm btn-danger' do %>
+                  <i class='glyphicon glyphicon-trash'></i>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if user_can_edit? %>
+  <!-- MODALS -->
+  <%= render 'shared/add_item_modal' %>
+  <%= render 'shared/edit_list_modal' %>
+  <%= render 'shared/delete_list_modal' %>
+  <%= render 'shared/edit_item_modal' %>
+<% end %>

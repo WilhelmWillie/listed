@@ -1,0 +1,41 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class='block'>
+        <h1 class='block-title user-display-name'><%= @user.display_name %></h1>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-7'>
+      <h2>Lists</h2>
+      <div class='list-group'>
+        <%= render 'lists/collection', lists: @lists %>
+      </div>
+    </div>
+
+    <div class='col-md-5'>
+      <h2>Liked Lists</h2>
+      <div class='list-group'>
+        <% @likes.each do |l|%>
+          <div class='list-group-item'>
+            <div class='list-preview-heading'>
+              <%= link_to l.list.title, l.list, class: 'list-title'%> <br>
+              <span class='list-author'>By: <%= link_to l.list.user.display_name, l.list.user %></span>
+            </div>
+
+            <p class='list-preview-description'>
+              <%= l.list.description %>
+            </p>
+
+            <div class='list-preview-footer'>
+              <span class='list-likes'><i class='glyphicon glyphicon-heart glyphicon-pad-right'></i> <%= l.list.likes_count %></span>
+              <span class='list-comments'><i class='glyphicon glyphicon-comment glyphicon-pad-right'></i> <%= l.list.comments_count %></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

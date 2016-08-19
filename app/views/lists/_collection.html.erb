@@ -1,0 +1,17 @@
+<% lists.each do |l|%>
+  <div class='list-group-item'>
+    <div class='list-preview-heading'>
+      <%= link_to l.title, l, class: 'list-title'%> <br>
+      <span class='list-author'>By: <%= link_to l.user.display_name, l.user %></span>
+    </div>
+
+    <p class='list-preview-description'>
+      <%= l.description %>
+    </p>
+
+    <div class='list-preview-footer'>
+      <span class='list-likes'><i class='glyphicon glyphicon-heart glyphicon-pad-right'></i> <%= l.likes_count %></span>
+      <span class='list-comments'><i class='glyphicon glyphicon-comment glyphicon-pad-right'></i> <%= l.comments_count %></span>
+    </div>
+  </div>
+<% end %>

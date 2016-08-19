@@ -1,0 +1,17 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-7'>
+      <h2>Recent Lists</h2>
+      <div class='list-group'>
+        <%= render 'lists/collection', lists: @recent %>
+      </div>
+    </div>
+
+    <div class='col-md-5'>
+      <h2>Your Lists <%= link_to '+ New List', new_list_path, class: 'btn btn-xs btn-success' %></h2>
+      <div class='list-group'>
+        <%= render 'lists/collection', lists: @lists %>
+      </div>
+    </div>
+  </div>
+</div>
