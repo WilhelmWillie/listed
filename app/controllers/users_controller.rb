@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to @user, notice: 'Succesfully signed up, welcome to Listed!' 
+      redirect_to '/login', notice: 'Succesfully signed up, welcome to Listed!' 
     else
       render :new
     end
